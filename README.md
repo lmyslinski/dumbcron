@@ -4,15 +4,10 @@ A minimal http service which runs http GET requests periodically
 
 It's a docker image that's designed for easily triggering http endpoints in a portable and reliable way
 
-| Running cron jobs in docker is an antipattern, you should use systemd
-
-Yes it is and I don't care - systemd takes effort and is not easily portable. This service literally uses less than 3mb of memory, I don't need this to be ran with pinpoint timestamp accuracy. As long as it runs sort of on schedule it's good enough. 
-
-
 ## Features
 
 - Runs an HTTP GET request periodically
-- Lightweight, uses less than 3mb of memory
+- Lightweight, uses less than 3mb of memory. The docker image is less than 30mb
 - Unlike cron, has actually usable logs and error handling
 - Dead simple to use and integrate
 
@@ -67,3 +62,7 @@ services:
 ## Why
 
 I needed to run some http requests periodically via docker-compose. All existing solutions weren't a good fit so I build this instead.
+
+> Running cron jobs in docker is an antipattern, you should use systemd
+
+Yes it is and I don't care - systemd takes effort and is not easily portable. This service literally uses less than 3mb of memory, I don't need this to be ran with pinpoint timestamp accuracy. As long as it runs sort of on schedule it's good enough. 
