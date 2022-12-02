@@ -20,11 +20,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let sleep_time: u64 = env::var("SLEEP_DURATION").unwrap_or("5".to_string()).parse().unwrap();
     let sleep_duration = time::Duration::from_secs(sleep_time);
-    let stakeboard_host = env::var("STAKEBOARD_HOST").unwrap();    
+    let target_url = env::var("TARGET_URL").unwrap();    
     
     loop {
-        log::info!("Calling {}", stakeboard_host);
-        let resp = reqwest::get(format!("{stakeboard_host}/api/sync"))
+        log::info!("Calling {}", target_url);
+        let resp = reqwest::get(&target_url)
             .await?;
 
 
