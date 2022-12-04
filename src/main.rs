@@ -30,15 +30,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     loop {
         log::info!("Calling {}", target_url);
-        let resp = reqwest::get(&target_url).await?;
-        let status = resp.status();
-
-        if status.is_success() {
-            log::info!("{}, {:#?}", status, resp.text().await?);
-        }else{
-            log::error!("{}, {:#?}", status, resp.text().await?);
-        }
-        
+        match reqwest::get(&target_url).await {
+            Ok(resp) => {
+                let status = resp.status();
+                if status.is_success() {
+                    log::info!("{}, {:#?}", status, resp.text().await?);
+                } else {
+                    log::error!("{}, {:#?}", status, resp.text().await?);
+                }
+            }
+            Err(error) => {
+                log::error!("Could not make request: {:#?}", error);
+            }
+        };
         log::info!("Sleeping for {:#?} seconds", sleep_duration);
         thread::sleep(sleep_duration);
     }
